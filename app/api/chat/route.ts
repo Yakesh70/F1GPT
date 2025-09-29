@@ -1,5 +1,4 @@
 import OpenAI from "openai"
-import { OpenAIStream, StreamingTextResponse } from "ai"
 import { DataAPIClient } from "@datastax/astra-db-ts"
 
 const {
@@ -24,68 +23,69 @@ export async function POST(req: Request) {
 
     let docContext = ""
 
-    const embedding = await openai.embeddings.create({
-      model: "text-embedding-3-small",
-      input: latestMessage,
-      encoding_format: "float"
-    })
-
+    // Get relevant F1 data from vector database
     try {
+      const embedding = await openai.embeddings.create({
+        model: "text-embedding-3-small",
+        input: latestMessage,
+        encoding_format: "float"
+      })
+
       const collection = await db.collection(ASTRA_DB_COLLECTION)
       const cursor = collection.find(null, {
         sort: {
           $vector: embedding.data[0].embedding,
         },
-        limit: 10
+        limit: 15
       })
 
       const documents = await cursor.toArray()
-
       const docsMap = documents?.map(doc => doc.text)
-
       docContext = JSON.stringify(docsMap)
-
+      
+      console.log(`Found ${documents.length} relevant documents`)
+      console.log('Context preview:', docContext.substring(0, 500))
     } catch (err) {
-      console.log("Error querying db...")
+      console.log("Error querying db:", err)
       docContext = ""
     }
-
-    const template = {
-      role: "system",
-      content: `You are an AI assistant who knows everything about Formula One.
-  Use the below context to augment what you know about Formula One racing.
-  The context will provide you with the most recent page data from wikipedia,
-  the official F1 website and others.
-
-  If the context doesn't include the information you need answer based on your
-  existing knowledge and don't mention the source of your information or
-  what the context does or doesn't include.
-
-  Format responses using markdown where applicable and don't return
-  images.
-
-  --------------------------------------------------
-
-  START CONTEXT
-  ${docContext}
-  END CONTEXT
-
-  --------------------------------------------------
-
-  QUESTION: ${latestMessage}
-  `
-    }
-
+    
     const response = await openai.chat.completions.create({
-      model: "gpt-4",
-      stream: true,
-      messages: [template as any, ...messages]
+      model: "gpt-4o-mini",
+      messages: [
+        {
+          role: "system",
+          content: `You are an expert Formula One assistant with access to comprehensive F1 data.
+
+Use the context below to answer questions. If the context contains relevant information, use it confidently. If the context mentions partial information (like race wins, championship scenarios), combine it with your F1 knowledge to provide complete answers.
+
+For example:
+- If context shows Verstappen winning multiple 2023 races and championship scenarios, you can confidently state he won the 2023 championship
+- If context shows salary/contract information, use it to answer about highest paid drivers
+
+Be confident and provide complete answers when you have sufficient information.
+
+--------------------------------------------------
+CONTEXT:
+${docContext}
+--------------------------------------------------
+
+QUESTION: ${latestMessage}`
+        },
+        ...messages
+      ]
     })
 
-    const stream = OpenAIStream(response)
-    return new StreamingTextResponse(stream)
-  } catch (error) {
+    return new Response(JSON.stringify({ 
+      message: response.choices[0].message.content 
+    }), {
+      headers: { 'Content-Type': 'application/json' }
+    })
+  } catch (error: any) {
     console.error('API Error:', error)
-    return new Response('Internal Server Error', { status: 500 })
+    return new Response(JSON.stringify({ error: error.message }), { 
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    })
   }
 }
