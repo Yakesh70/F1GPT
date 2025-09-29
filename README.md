@@ -1,4 +1,22 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# F1 RAG Chatbot
+
+This is a RAG (Retrieval-Augmented Generation) chatbot built with Next.js, LangChain.js, and OpenAI for F1-related queries.
+
+## Project Structure
+
+```
+f1-chatbot/
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   ├── chat/
+│   │   │   └── upload/
+│   │   ├── components/
+│   │   └── lib/
+│   └── data/
+├── public/
+└── docs/
+```
 
 ## Getting Started
 
