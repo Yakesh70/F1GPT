@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elan Enterprises Widget Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #e10600;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .demo-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #e10600;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .highlight {
+            background: #e10600;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏢 Elan Enterprises Chatbot Widget</h1>
+        
+        <div class="demo-section">
+            <h2>📋 How to Add This Widget to Any Website</h2>
+            <p>Simply copy and paste this single line of code anywhere in your HTML:</p>
+            <div class="code-block">
+&lt;script src="<span id="widget-url"></span>/widget.js"&gt;&lt;/script&gt;
+            </div>
+            <p>That's it! The chatbot will automatically appear in the bottom-right corner.</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>✨ Widget Features</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <strong>💬 Smart Chat</strong><br>
+                    AI-powered responses about Elan Enterprises
+                </div>
+                <div class="feature-item">
+                    <strong>📱 Responsive</strong><br>
+                    Works perfectly on mobile and desktop
+                </div>
+                <div class="feature-item">
+                    <strong>🎨 Branded</strong><br>
+                    Elan Enterprises colors and styling
+                </div>
+                <div class="feature-item">
+                    <strong>⚡ Fast</strong><br>
+                    Lightweight and quick to load
+                </div>
+                <div class="feature-item">
+                    <strong>🔒 Secure</strong><br>
+                    CORS enabled, works across domains
+                </div>
+                <div class="feature-item">
+                    <strong>🚀 Easy</strong><br>
+                    No configuration needed
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>🧪 Try It Now</h2>
+            <p>Look at the bottom-right corner of this page! Click the <span class="highlight">💬</span> bubble to test the chatbot.</p>
+            <p><strong>Try asking:</strong></p>
+            <ul>
+                <li>"What services does Elan Enterprises offer?"</li>
+                <li>"Tell me about your projects"</li>
+                <li>"How can I contact Elan Enterprises?"</li>
+                <li>"What does Elan Enterprises do?"</li>
+            </ul>
+        </div>
+
+        <div class="demo-section">
+            <h2>🌐 Usage Examples</h2>
+            <p><strong>WordPress:</strong> Add to footer.php or use a plugin</p>
+            <div class="code-block">
+&lt;?php wp_footer(); ?&gt;
+&lt;script src="<span class="widget-url-placeholder"></span>/widget.js"&gt;&lt;/script&gt;
+            </div>
+
+            <p><strong>HTML Website:</strong> Add before closing &lt;/body&gt; tag</p>
+            <div class="code-block">
+    &lt;script src="<span class="widget-url-placeholder"></span>/widget.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </div>
+
+            <p><strong>React/Next.js:</strong> Add to _document.js or layout</p>
+            <div class="code-block">
+&lt;Script src="<span class="widget-url-placeholder"></span>/widget.js" /&gt;
+            </div>
+        </div>
+
+        <div class="notice">
+            <strong>📢 Note:</strong> This widget connects to Elan Enterprises' knowledge base and provides information about their services, projects, and contact details. Perfect for embedding on partner websites or client portals!
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; color: #666;">
+            <p>Powered by <strong style="color: #e10600;">Elan Enterprises AI</strong></p>
+        </div>
+    </div>
+
+    <!-- Load the actual widget -->
+    <script>
+        // Set the current URL for demo
+        const currentUrl = window.location.origin;
+        document.getElementById('widget-url').textContent = currentUrl;
+        document.querySelectorAll('.widget-url-placeholder').forEach(el => {
+            el.textContent = currentUrl;
+        });
+    </script>
+    <script src="/widget.js"></script>
+</body>
+</html>

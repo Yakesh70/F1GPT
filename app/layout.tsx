@@ -1,4 +1,5 @@
 import "./global.css"
+import Script from "next/script"
 
 export const metadata = {
   title: "F1GPT",
@@ -8,7 +9,10 @@ export const metadata = {
 const RootLayout = ({ children }) => {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <Script src="/f1-chatbot-widget.js" strategy="afterInteractive" />
+      </body>
     </html>
   )
 }

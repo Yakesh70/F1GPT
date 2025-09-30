@@ -9,18 +9,19 @@ type similaritymetric = "dot_product" | "cosine" | "euclidean"
 const { ASTRA_DB_NAMESPACE, ASTRA_DB_COLLECTION, ASTRA_DB_API_ENDPOINT, ASTRA_DB_APPLICATION_TOKEN, OPENAI_API_KEY} = process.env
 
 const openai = new OpenAI({apiKey: OPENAI_API_KEY})
-const f1Data = [
-'https://en.wikipedia.org/wiki/Formula_One',
-'https://www.skysports.com/f1/news/12433/13117256/lewis-hamilton-says-move-to-ferrari-from-mercedes-doesn-t-need-vindicating-and-',
-'https://www.formula1.com/en/latest/all',
-'https://www.forbes.com/sites/brettknight/2023/11/29/formula-1s-highest-paid-drivers-2023/?sh=12bdb942463f',
-'https://www.autosport.com/f1/news/history-of-female-f1-drivers-including-grand-prix-starters-and-test-drivers/10584871/',
-'https://en.wikipedia.org/wiki/2023_Formula_One_World_Championship',
-'https://en.wikipedia.org/wiki/2022_Formula_One_World_Championship',
-'https://en.wikipedia.org/wiki/List_of_Formula_One_World_Drivers%27_Champions',
-'https://en.wikipedia.org/wiki/2024_Formula_One_World_Championship',
-'https://www.formula1.com/en/results.html/2024/races.html',
-'https://www.formula1.com/en/racing/2024.html'
+const elanData = [
+'https://elanenterprises.in/',
+'https://elanenterprises.in/about',
+'https://elanenterprises.in/about/',
+'https://elanenterprises.in/contact',
+'https://elanenterprises.in/contact/',
+'https://elanenterprises.in/projects',
+'https://elanenterprises.in/projects/',
+'https://elanenterprises.in/renovation',
+'https://elanenterprises.in/services',
+'https://elanenterprises.in/services/',
+'https://elanenterprises.in/services/',
+'https://elanenterprises.in/services/'
 ]
 
 const client = new DataAPIClient(ASTRA_DB_APPLICATION_TOKEN)
@@ -52,7 +53,7 @@ const createCollection = async(similaritymetric: similaritymetric = "dot_product
 const loadsampledata = async() => {
     const collection = await db.collection(ASTRA_DB_COLLECTION)
     
-    for await (const url of f1Data){
+    for await (const url of elanData){
         console.log(`Processing ${url}...`)
         
         // Check if URL already exists
